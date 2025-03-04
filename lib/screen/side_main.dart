@@ -14,6 +14,14 @@ class SideMain extends StatefulWidget {
 }
 
 class _SideMainState extends State<SideMain> {
+  int _selectedIndex = 0;
+
+  void _onItemTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -53,9 +61,12 @@ class _SideMainState extends State<SideMain> {
               child: ListView.builder(
                   itemCount: demoMainSide.length,
                   itemBuilder: (context, index) {
-                    //return ListTitle1(index, demoMainSide[index]);
                     return ListTitle1(
-                        index: index, mainSide: demoMainSide[index]);
+                      index: index,
+                      mainSide: demoMainSide[index],
+                      selectedIndex: _selectedIndex,
+                      onTap: _onItemTap,
+                    );
                   }),
             ),
             const SizedBox(height: defaultPadding * 2),
@@ -66,7 +77,10 @@ class _SideMainState extends State<SideMain> {
                   itemBuilder: (context, index) {
                     return ListTitle2(
                         index: index,
-                        mainSideSetting: demoMainSideSetting[index]);
+                        mainSideSetting: demoMainSideSetting[index],
+                        selectedIndex: _selectedIndex,
+                        onTap: _onItemTap,
+                      );
                   }),
             ),
           ],

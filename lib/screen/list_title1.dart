@@ -4,24 +4,32 @@ import 'package:dashboard_workout/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ListTitle1 extends StatefulWidget {
-  const ListTitle1({super.key, required this.index, required this.mainSide});
+  const ListTitle1({
+    super.key,
+    required this.index,
+    required this.mainSide,
+    required this.selectedIndex,
+    required this.onTap,
+  });
 
   final int index;
   final MainSide mainSide;
+  final int selectedIndex;
+  final ValueChanged<int> onTap;
 
   @override
   State<ListTitle1> createState() => _ListTitle1State();
 }
 
 class _ListTitle1State extends State<ListTitle1> {
-  int _selectIndex = 0;
+  
   @override
   Widget build(BuildContext context) {
+    final bool isSelected = widget.selectedIndex == widget.index;
+
     return Container(
       decoration: BoxDecoration(
-        color: _selectIndex == widget.index
-            ? const Color(0xffcceddd)
-            : Colors.transparent,
+        color: isSelected ? const Color(0xffcceddd) : Colors.transparent,
         gradient: const LinearGradient(
           colors: [
             Color(0xff58d9d9),
@@ -34,11 +42,7 @@ class _ListTitle1State extends State<ListTitle1> {
       ),
       child: ListTile(
         hoverColor: const Color(0x00ffcced),
-        onTap: () {
-          setState(() {
-            _selectIndex = widget.mainSide.index;
-          });
-        },
+        onTap: () => widget.onTap(widget.index),
         leading: Padding(
           padding: const EdgeInsets.only(
             left: defaultPadding * 1.5,
@@ -48,7 +52,7 @@ class _ListTitle1State extends State<ListTitle1> {
             width: 30,
             child: Icon(
               widget.mainSide.icon,
-              color: _selectIndex == widget.index ? Colors.black : Colors.white,
+              color: isSelected ? Colors.black : Colors.white,
             ),
           ),
         ),
@@ -57,7 +61,7 @@ class _ListTitle1State extends State<ListTitle1> {
           style: GoogleFonts.ubuntu(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: _selectIndex == widget.index ? Colors.black : Colors.white,
+            color: isSelected ? Colors.black : Colors.white,
           ),
         ),
       ),
