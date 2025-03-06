@@ -26,40 +26,20 @@ class _MainScreenState extends State<MainScreen> {
         Expanded(
           flex: 4,
           child: Container(
-            child: Column(
+            padding: const EdgeInsets.symmetric(
+              horizontal: defaultPadding * 2,
+            ),
+            child: const Column(
               children: [
                 Row(
                   children: [
-                    Expanded(
-                        child: Container(
-                      height: 160,
-                      width: 250,
-                      decoration: const BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'yoga',
-                                style: GoogleFonts.ubuntu(
-                                  color: Colors.white, 
-                                  fontSize: 14, fontWeight: 
-                                  FontWeight.w600,
-                                  ),
-                              ),
-                              const SizedBox(
-                                height: 10, 
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ))
+                    ContainerRing(),
+                    SizedBox(width: defaultPadding),
+                    ContainerRing(),
+                    SizedBox(width: defaultPadding),
+                    ContainerRing(),
+                    SizedBox(width: defaultPadding),
+                    ContainerRing(),
                   ],
                 )
               ],
@@ -68,5 +48,77 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ],
     ));
+  }
+}
+
+class ContainerRing extends StatelessWidget {
+  const ContainerRing({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(defaultPadding),
+        height: 160,
+        width: 250,
+        decoration: const BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment
+                  .start, // Bez tej linijki napis jest przesunięty w prawo !!
+              children: [
+                Text(
+                  'yoga',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: '40',
+                        style: GoogleFonts.ubuntu(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '/60',
+                            style: GoogleFonts.ubuntu(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          TextSpan(
+                            text: ' minutes',
+                            style: GoogleFonts.ubuntu(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
